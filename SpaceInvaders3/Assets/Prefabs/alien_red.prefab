@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: -2514998599201696007}
   m_Layer: 0
   m_Name: alien_red
-  m_TagString: Untagged
+  m_TagString: alien
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -100,6 +100,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   id: 2
+  speed: 1
+  timeToMove: 0
+  alienRow: 0
 --- !u!61 &4711095695655459537
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -146,4 +149,4 @@ Rigidbody2D:
   m_Interpolate: 0
   m_SleepingMode: 1
   m_CollisionDetection: 0
-  m_Constraints: 7
+  m_Constraints: 4

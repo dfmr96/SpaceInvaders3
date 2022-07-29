@@ -11,6 +11,7 @@ public class BoardManager : MonoBehaviour
     public float paddingX = 0.05f, paddingY = 0.05f; //alien padding
 
     public float counter;
+    float timeReducer = 0.3f;
 
     private void Start()
     {
@@ -46,6 +47,8 @@ public class BoardManager : MonoBehaviour
                 alien.name = string.Format("Alien[{0}][{1}]", x, y);
                 alien.transform.parent = this.transform;
                 aliens[x, y] = alien;
+                alien.GetComponent<Alien>().alienRow = FindAlien(alien).y;
+                alien.GetComponent<Alien>().timeToMove = FindAlien(alien).y * timeReducer;
             }
         }
     }
@@ -97,6 +100,19 @@ public class BoardManager : MonoBehaviour
         if (adjacent != null && adjacent.id == alien.GetComponent<Alien>().id)
         {
             adjacent.DestroyAlien();
+        }
+    }
+
+    public void ChangeDirection(int row)
+    {
+        int w = aliens.GetLength(0);
+        
+        for (int i = 0; i < w; i++)
+        {
+            if(aliens[i, row] != null)
+            {
+            aliens[i, row].GetComponent<Alien>().speed *= -1;
+            }
         }
     }
 }
