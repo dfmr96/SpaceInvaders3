@@ -46,4 +46,12 @@ public class playerController : MonoBehaviour
     {
         Instantiate(bulletPrefab, (transform.position + new Vector3(0,0.5f,0)) , bulletPrefab.transform.rotation);
     }
+
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        if (collision.gameObject.CompareTag("EnemyBullet"))
+        {
+            Destroy(gameObject);
+        }
+    }
 }

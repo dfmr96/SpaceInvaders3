@@ -101,7 +101,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   id: 1
   speed: 1
+  bulletPrefab: {fileID: 3160423617899746619, guid: 85693714938d7ca499283a0f4a74304f, type: 3}
   timeToMove: 0
+  timeToShoot: 3
+  chanceToShoot: 1
   alienRow: 0
 --- !u!61 &-3113613525595929958
 BoxCollider2D:

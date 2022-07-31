@@ -1,7 +1,9 @@
+using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 
 [RequireComponent(typeof(Rigidbody2D))]
-public class bulletStats : MonoBehaviour
+public class EnemyBulletStats : MonoBehaviour
 {
     [SerializeField] int BulletSpeed;
     Rigidbody2D rb;
@@ -12,14 +14,6 @@ public class bulletStats : MonoBehaviour
     private void Update()
     {
         rb.velocity = Vector2.up * BulletSpeed;
-    }
-
-    private void OnCollisionEnter2D(Collision2D collision)
-    {
-        if (collision.gameObject.CompareTag("boundary"))
-        {
-            Destroy(gameObject);
-        }
     }
 
 }

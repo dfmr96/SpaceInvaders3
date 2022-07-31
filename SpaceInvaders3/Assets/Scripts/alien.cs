@@ -4,9 +4,11 @@ public class Alien : MonoBehaviour
 {
     public int id;
     public int speed;
+    [SerializeField] GameObject bulletPrefab;
     [SerializeField]
-    public float timeToMove;
-    float counter;
+    public float timeToMove, timeToShoot;
+    float counter, shootCounter;
+    [SerializeField] int chanceToShoot;
     public int alienRow;
     Rigidbody2D rb;
     private void Start()
@@ -17,10 +19,17 @@ public class Alien : MonoBehaviour
     private void Update()
     {
         counter = Time.fixedTime;
+        shootCounter += Time.deltaTime;
 
         if (counter >= timeToMove)
         {
             rb.velocity = Vector2.right * speed;
+        }
+
+        if (shootCounter >= timeToShoot)
+        {
+            Shoot();
+            shootCounter = 0;
         }
     }
 
@@ -38,7 +47,7 @@ public class Alien : MonoBehaviour
             Destroy(collision.gameObject);
         }
 
-        if (collision.gameObject.CompareTag("alien"))
+        if (collision.gameObject.CompareTag("alien") || collision.gameObject.CompareTag("EnemyBullet"))
         {
             Physics2D.IgnoreCollision(collision.collider, GetComponent<Collider2D>());
         }
@@ -48,5 +57,15 @@ public class Alien : MonoBehaviour
     public void DestroyAlien()
     {
         Destroy(gameObject);
+    }
+
+    void Shoot()
+    {
+        int randomNumber = Random.Range(0, 100);
+
+        if (randomNumber <= chanceToShoot)
+        {
+        Instantiate(bulletPrefab, (transform.position + new Vector3(0, 0.5f, 0)), bulletPrefab.transform.rotation);
+        }
     }
 }
