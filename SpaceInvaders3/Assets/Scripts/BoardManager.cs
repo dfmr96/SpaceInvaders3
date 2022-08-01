@@ -7,7 +7,8 @@ public class BoardManager : MonoBehaviour
     public static BoardManager sharedInstance; //singleton
 
     public List<GameObject> prefabs = new List<GameObject>(); //Alien prefabs
-    [SerializeField] GameObject player;
+    [SerializeField] GameObject player,barrier;
+    [SerializeField] List<GameObject> barriers;
     public GameObject[,] aliens; //matriz
     public int xSize = 11, ySize = 5; //board size
     public float paddingX = 0.05f, paddingY = 0.05f; //alien padding
@@ -36,11 +37,13 @@ public class BoardManager : MonoBehaviour
             Destroy(this.gameObject);
         }
         Time.timeScale = 1;
+        barriers = new List<GameObject>();
         if (PlayerPrefs.HasKey("highscore"))
         {
             highScore = PlayerPrefs.GetInt("highscore", highScore);
         }
         CreateInitialBoard();
+        CreateBarriers();
         Instantiate(player, player.transform.position, player.transform.rotation);
     }
 
@@ -50,7 +53,7 @@ public class BoardManager : MonoBehaviour
         if (totalEnemies == 0)
         {
             CreateInitialBoard();
-
+            CreateBarriers();
         }
     }
 
@@ -203,4 +206,20 @@ public class BoardManager : MonoBehaviour
     {
         StartCoroutine(SpawnPlayer());
     }
+
+    public void CreateBarriers()
+    {
+        foreach (GameObject barrier in barriers)
+        {
+            Destroy(barrier);
+        }
+
+        for (int i = 0; i < 4; i++)
+        {
+            var barrierGO =Instantiate(barrier, (new Vector3(-9.55f + (6 * i),-4,0)), barrier.transform.rotation);
+            barriers.Add(barrierGO);
+        }
+    }
+
+    
 }
