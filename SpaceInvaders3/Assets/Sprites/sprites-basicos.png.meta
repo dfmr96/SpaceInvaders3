@@ -538,6 +538,27 @@ TextureImporter:
       indices: 
       edges: []
       weights: []
+    - serializedVersion: 2
+      name: sprites-basicos_0
+      rect:
+        serializedVersion: 2
+        x: 98
+        y: 16
+        width: 6
+        height: 10
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 5a64971eb61c1de499a42ec25ff3fdde
+      internalID: -1981040726
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
     outline: []
     physicsShape: []
     bones: []
@@ -554,6 +575,7 @@ TextureImporter:
       player: -901979868
       projectile_player: -2073051276
       alien_red_1: -1787943790
+      sprites-basicos_0: -1981040726
       erased_green: -1224859984
       alien_green_2: -166681020
       alien_white_2: -935692408

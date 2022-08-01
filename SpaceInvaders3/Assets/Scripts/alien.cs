@@ -11,9 +11,11 @@ public class Alien : MonoBehaviour
     [SerializeField] int chanceToShoot;
     public int alienRow;
     Rigidbody2D rb;
+    Animator anim;
     private void Start()
     {
         rb = GetComponent<Rigidbody2D>();
+        anim = GetComponent<Animator>();
     }
 
     private void Update()
@@ -70,7 +72,8 @@ public class Alien : MonoBehaviour
 
     public void DestroyAlien()
     {
-        Destroy(gameObject);
+        Destroy(gameObject, 0.5f);
+        anim.SetBool("isDead", true);
         BoardManager.sharedInstance.totalEnemies--;
     }
 
