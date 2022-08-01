@@ -38,7 +38,6 @@ public class Alien : MonoBehaviour
         if (collision.gameObject.CompareTag("boundary"))
         {
             BoardManager.sharedInstance.ChangeDirection(alienRow);
-            Debug.Log(collision.gameObject.name);
             if (collision.gameObject.name == "Left" && BoardManager.sharedInstance.leftBoundaryCanTranslate == true)
             {
                 BoardManager.sharedInstance.TranslateEnemiesDown();
@@ -73,7 +72,6 @@ public class Alien : MonoBehaviour
     {
         Destroy(gameObject);
         BoardManager.sharedInstance.totalEnemies--;
-        BoardManager.sharedInstance.score += 100;
     }
 
     void Shoot()

@@ -175,6 +175,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2700ae15818da00449a5d2cb2c371ef2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  pressStart: {fileID: 1117011999}
+  counter: 0
+  delay: 0
 --- !u!1 &699587697
 GameObject:
   m_ObjectHideFlags: 0

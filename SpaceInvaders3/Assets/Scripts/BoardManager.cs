@@ -16,6 +16,7 @@ public class BoardManager : MonoBehaviour
     public int totalEnemies = 0;
     public int score;
     public int highScore;
+    int chainEnemies;
 
 
     public int lives;
@@ -33,6 +34,10 @@ public class BoardManager : MonoBehaviour
             Destroy(this.gameObject);
         }
         Time.timeScale = 1;
+        if (PlayerPrefs.HasKey("highscore"))
+        {
+            highScore = PlayerPrefs.GetInt("highscore", highScore);
+        }
         CreateInitialBoard();
     }
 
@@ -89,12 +94,14 @@ public class BoardManager : MonoBehaviour
 
     public void ClearAdjacentAliens(GameObject alien)
     {
+        chainEnemies++;
         Vector2Int alienShootPosition = FindAlien(alien);
         KillAdjacentAlien(new Vector2Int(alienShootPosition.x, alienShootPosition.y + 1), alien);
         KillAdjacentAlien(new Vector2Int(alienShootPosition.x, alienShootPosition.y - 1), alien);
         KillAdjacentAlien(new Vector2Int(alienShootPosition.x + 1, alienShootPosition.y), alien);
         KillAdjacentAlien(new Vector2Int(alienShootPosition.x - 1, alienShootPosition.y), alien);
 
+        UpdateScore();
     }
 
     public void KillAdjacentAlien(Vector2Int position, GameObject alien)
@@ -115,6 +122,7 @@ public class BoardManager : MonoBehaviour
         if (adjacent != null && adjacent.id == alien.GetComponent<Alien>().id)
         {
             adjacent.DestroyAlien();
+            chainEnemies++;
         }
     }
 
@@ -143,7 +151,42 @@ public class BoardManager : MonoBehaviour
 
     public void GameOver()
     {
+        if (score > highScore)
+        {
+            PlayerPrefs.SetInt("highscore", score);
+        }
         UIManager.sharedInstance.ShowGameOverScreen();
         Time.timeScale = 0;
+    }
+
+    void UpdateScore()
+    {
+        if (chainEnemies > 1)
+        {
+        score += chainEnemies * Fibonacci()[chainEnemies + 1] * 10;
+            
+            
+        } else
+        {
+            score += 10;
+        }
+
+        chainEnemies = 0;
+    }
+
+    public int[] Fibonacci()
+    {
+        int i;
+        int[] fibNumbers = new int[6];
+        fibNumbers[0] = 0;
+        fibNumbers[1] = 1;
+        for (i = 2; i < 6; i++)
+        {
+            fibNumbers[i] = fibNumbers[i - 1] + fibNumbers[i - 2];
+            
+        }
+        return fibNumbers;
+
+        
     }
 }
