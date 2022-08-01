@@ -9,6 +9,8 @@ public class playerController : MonoBehaviour
     private const string horizontal = "Horizontal";
     Vector2 movementDirection;
 
+    [SerializeField] AudioSource shootSound, explosionSound;
+
     [SerializeField] GameObject bulletPrefab;
     [SerializeField] float rateOfFire;
     [SerializeField] float rateOfFireTimer;
@@ -34,6 +36,7 @@ public class playerController : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Space) && rateOfFireTimer < 0)
         {
             Shoot();
+            shootSound.Play();
             rateOfFireTimer = rateOfFire;
         }
     }
@@ -55,13 +58,15 @@ public class playerController : MonoBehaviour
         if (collision.gameObject.CompareTag("EnemyBullet"))
         {
             Destroy(collision.gameObject);
-            if (BoardManager.sharedInstance.lives > 1)
+            BoardManager.sharedInstance.lives--;
+
+            if (BoardManager.sharedInstance.lives > 0)
             {
-                BoardManager.sharedInstance.lives--;
                 DestroyPlayer();
             }
             else
             {
+
                 BoardManager.sharedInstance.GameOver();
             }
         }
@@ -70,6 +75,7 @@ public class playerController : MonoBehaviour
     void DestroyPlayer()
     {
         anim.SetBool("isDestroyed", true);
+        explosionSound.Play();
         Destroy(gameObject, 1f);
         BoardManager.sharedInstance.SpawnPlayerMethod();
     }

@@ -12,10 +12,12 @@ public class Alien : MonoBehaviour
     public int alienRow;
     Rigidbody2D rb;
     Animator anim;
+    AudioSource invaderKilledSound;
     private void Start()
     {
         rb = GetComponent<Rigidbody2D>();
         anim = GetComponent<Animator>();
+        invaderKilledSound = GetComponent<AudioSource>();
     }
 
     private void Update()
@@ -75,6 +77,7 @@ public class Alien : MonoBehaviour
         Destroy(gameObject, 0.5f);
         anim.SetBool("isDead", true);
         BoardManager.sharedInstance.totalEnemies--;
+        invaderKilledSound.Play();
     }
 
     void Shoot()
