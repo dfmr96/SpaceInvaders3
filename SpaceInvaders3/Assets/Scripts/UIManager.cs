@@ -31,7 +31,7 @@ public class UIManager : MonoBehaviour
         if(gameoverScreen.activeInHierarchy == true && Input.GetKeyDown(KeyCode.R))
         {
             Time.timeScale = 1;
-            SceneManager.LoadScene(0);
+            SceneManager.LoadScene(1);
         }
     }
 
