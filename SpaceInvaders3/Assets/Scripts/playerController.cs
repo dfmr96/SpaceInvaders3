@@ -52,13 +52,13 @@ public class playerController : MonoBehaviour
         if (collision.gameObject.CompareTag("EnemyBullet"))
         {
             Destroy(collision.gameObject);
-            if (BoardManager.sharedInstance.lives > 0)
+            if (BoardManager.sharedInstance.lives > 1)
             {
                 BoardManager.sharedInstance.lives--;
             }
             else
             {
-                Destroy(gameObject);
+                BoardManager.sharedInstance.GameOver();
             }
         }
     }

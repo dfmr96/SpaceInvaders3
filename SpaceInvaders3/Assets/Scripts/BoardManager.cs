@@ -20,7 +20,6 @@ public class BoardManager : MonoBehaviour
 
     public int lives;
 
-    [SerializeField] float fallCounter;
     public bool leftBoundaryCanTranslate, rightBoundaryCanTranslate;
 
     private void Start()
@@ -33,14 +32,13 @@ public class BoardManager : MonoBehaviour
         {
             Destroy(this.gameObject);
         }
-
+        Time.timeScale = 1;
         CreateInitialBoard();
     }
 
     private void Update()
     {
         counter += Time.deltaTime;
-        fallCounter += Time.deltaTime;
         if (totalEnemies == 0)
         {
             CreateInitialBoard();
@@ -134,9 +132,6 @@ public class BoardManager : MonoBehaviour
     }
     public void TranslateEnemiesDown()
     {
-
-
-
         foreach (GameObject alien in aliens)
         {
             if (alien != null)
@@ -144,8 +139,11 @@ public class BoardManager : MonoBehaviour
                 alien.transform.Translate(Vector3.down);
             }
         }
-        fallCounter = 0;
+    }
 
-
+    public void GameOver()
+    {
+        UIManager.sharedInstance.ShowGameOverScreen();
+        Time.timeScale = 0;
     }
 }
