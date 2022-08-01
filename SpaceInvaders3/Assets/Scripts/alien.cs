@@ -7,7 +7,7 @@ public class Alien : MonoBehaviour
     [SerializeField] GameObject bulletPrefab;
     [SerializeField]
     public float timeToMove, timeToShoot;
-    float counter, shootCounter;
+    float shootCounter;
     [SerializeField] int chanceToShoot;
     public int alienRow;
     Rigidbody2D rb;
@@ -22,7 +22,6 @@ public class Alien : MonoBehaviour
 
     private void Update()
     {
-
         shootCounter += Time.deltaTime;
 
         if (BoardManager.sharedInstance.counter >= timeToMove)
@@ -47,7 +46,7 @@ public class Alien : MonoBehaviour
                 BoardManager.sharedInstance.TranslateEnemiesDown();
                 BoardManager.sharedInstance.leftBoundaryCanTranslate = false;
                 BoardManager.sharedInstance.rightBoundaryCanTranslate = true;
-            } 
+            }
 
             if (collision.gameObject.name == "Right" && BoardManager.sharedInstance.rightBoundaryCanTranslate == true)
             {
@@ -70,7 +69,6 @@ public class Alien : MonoBehaviour
             Physics2D.IgnoreCollision(collision.collider, GetComponent<Collider2D>());
         }
     }
-
 
     public void DestroyAlien()
     {

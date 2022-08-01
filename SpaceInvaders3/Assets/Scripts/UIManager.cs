@@ -39,6 +39,4 @@ public class UIManager : MonoBehaviour
     {
         gameoverScreen.SetActive(true);
     }
-
-
 }

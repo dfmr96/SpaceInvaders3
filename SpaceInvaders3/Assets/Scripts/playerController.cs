@@ -45,7 +45,6 @@ public class playerController : MonoBehaviour
     {
         movementDirection = new Vector2(Input.GetAxisRaw(horizontal), 0); // Catch vector2 movement direction
         rb.velocity = movementDirection.normalized * speed; //normalize to get movement direction and increase the vector magnitude with * speed
-
     }
 
     public void Shoot()

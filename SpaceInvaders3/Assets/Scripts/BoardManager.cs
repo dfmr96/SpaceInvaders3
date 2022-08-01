@@ -1,13 +1,13 @@
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using System.Collections;
 
 public class BoardManager : MonoBehaviour
 {
     public static BoardManager sharedInstance; //singleton
 
     public List<GameObject> prefabs = new List<GameObject>(); //Alien prefabs
-    [SerializeField] GameObject player,barrier;
+    [SerializeField] GameObject player, barrier;
     [SerializeField] List<GameObject> barriers;
     public GameObject[,] aliens; //matriz
     public int xSize = 11, ySize = 5; //board size
@@ -81,7 +81,6 @@ public class BoardManager : MonoBehaviour
     }
     public Vector2Int FindAlien(GameObject alien)
     {
-
         int w = aliens.GetLength(0);
         int h = aliens.GetLength(1);
 
@@ -95,7 +94,6 @@ public class BoardManager : MonoBehaviour
                 }
             }
         }
-
         return new Vector2Int(-1, -1);
     }
 
@@ -120,11 +118,11 @@ public class BoardManager : MonoBehaviour
         }
 
         GameObject adjacentObject = aliens[position.x, position.y];
-
         if (adjacentObject == null)
         {
             return;
         }
+
         Alien adjacent = adjacentObject.GetComponent<Alien>();
         if (adjacent != null && adjacent.id == alien.GetComponent<Alien>().id)
         {
@@ -170,14 +168,12 @@ public class BoardManager : MonoBehaviour
     {
         if (chainEnemies > 1)
         {
-        score += chainEnemies * Fibonacci()[chainEnemies + 1] * 10;
-            
-            
-        } else
+            score += chainEnemies * Fibonacci()[chainEnemies + 1] * 10;
+        }
+        else
         {
             score += 10;
         }
-
         chainEnemies = 0;
     }
 
@@ -190,7 +186,7 @@ public class BoardManager : MonoBehaviour
         for (i = 2; i < 6; i++)
         {
             fibNumbers[i] = fibNumbers[i - 1] + fibNumbers[i - 2];
-            
+
         }
         return fibNumbers;
     }
@@ -216,10 +212,8 @@ public class BoardManager : MonoBehaviour
 
         for (int i = 0; i < 4; i++)
         {
-            var barrierGO =Instantiate(barrier, (new Vector3(-9.55f + (6 * i),-4,0)), barrier.transform.rotation);
+            var barrierGO = Instantiate(barrier, (new Vector3(-9.55f + (6 * i), -4, 0)), barrier.transform.rotation);
             barriers.Add(barrierGO);
         }
     }
-
-    
 }
