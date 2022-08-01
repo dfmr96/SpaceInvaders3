@@ -41,17 +41,25 @@ public class playerController : MonoBehaviour
         rb.velocity = movementDirection.normalized * speed; //normalize to get movement direction and increase the vector magnitude with * speed
 
     }
-    
+
     public void Shoot()
     {
-        Instantiate(bulletPrefab, (transform.position + new Vector3(0,0.5f,0)) , bulletPrefab.transform.rotation);
+        Instantiate(bulletPrefab, (transform.position + new Vector3(0, 0.5f, 0)), bulletPrefab.transform.rotation);
     }
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
         if (collision.gameObject.CompareTag("EnemyBullet"))
         {
-            Destroy(gameObject);
+            Destroy(collision.gameObject);
+            if (BoardManager.sharedInstance.lives > 0)
+            {
+                BoardManager.sharedInstance.lives--;
+            }
+            else
+            {
+                Destroy(gameObject);
+            }
         }
     }
 }

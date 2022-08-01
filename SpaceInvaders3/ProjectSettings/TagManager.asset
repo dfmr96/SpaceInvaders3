@@ -8,6 +8,9 @@ TagManager:
   - bullet
   - alien
   - EnemyBullet
+  - barrier
+  - LeftBoundary
+  - RightBoundary
   layers:
   - Default
   - TransparentFX

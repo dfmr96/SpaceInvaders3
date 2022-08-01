@@ -3,7 +3,7 @@ using UnityEngine;
 public class Alien : MonoBehaviour
 {
     public int id;
-    public int speed;
+    public float speed;
     [SerializeField] GameObject bulletPrefab;
     [SerializeField]
     public float timeToMove, timeToShoot;
@@ -18,10 +18,10 @@ public class Alien : MonoBehaviour
 
     private void Update()
     {
-        counter = Time.fixedTime;
+
         shootCounter += Time.deltaTime;
 
-        if (counter >= timeToMove)
+        if (BoardManager.sharedInstance.counter >= timeToMove)
         {
             rb.velocity = Vector2.right * speed;
         }
@@ -38,6 +38,21 @@ public class Alien : MonoBehaviour
         if (collision.gameObject.CompareTag("boundary"))
         {
             BoardManager.sharedInstance.ChangeDirection(alienRow);
+            Debug.Log(collision.gameObject.name);
+            if (collision.gameObject.name == "Left" && BoardManager.sharedInstance.leftBoundaryCanTranslate == true)
+            {
+                BoardManager.sharedInstance.TranslateEnemiesDown();
+                BoardManager.sharedInstance.leftBoundaryCanTranslate = false;
+                BoardManager.sharedInstance.rightBoundaryCanTranslate = true;
+            } 
+
+            if (collision.gameObject.name == "Right" && BoardManager.sharedInstance.rightBoundaryCanTranslate == true)
+            {
+                BoardManager.sharedInstance.TranslateEnemiesDown();
+                BoardManager.sharedInstance.rightBoundaryCanTranslate = false;
+                BoardManager.sharedInstance.leftBoundaryCanTranslate = true;
+            }
+
         }
 
         if (collision.gameObject.CompareTag("bullet"))
@@ -57,6 +72,8 @@ public class Alien : MonoBehaviour
     public void DestroyAlien()
     {
         Destroy(gameObject);
+        BoardManager.sharedInstance.totalEnemies--;
+        BoardManager.sharedInstance.score += 100;
     }
 
     void Shoot()
@@ -65,7 +82,7 @@ public class Alien : MonoBehaviour
 
         if (randomNumber <= chanceToShoot)
         {
-        Instantiate(bulletPrefab, (transform.position + new Vector3(0, 0.5f, 0)), bulletPrefab.transform.rotation);
+            Instantiate(bulletPrefab, (transform.position + new Vector3(0, 0.25f, 0)), bulletPrefab.transform.rotation);
         }
     }
 }

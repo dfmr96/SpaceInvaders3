@@ -16,10 +16,16 @@ public class bulletStats : MonoBehaviour
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        if (collision.gameObject.CompareTag("boundary"))
+        if (collision.gameObject.CompareTag("boundary") || collision.gameObject.CompareTag("barrier"))
         {
             Destroy(gameObject);
         }
+
+        if (collision.gameObject.CompareTag("EnemyBullet"))
+        {
+        Physics2D.IgnoreCollision(collision.collider, GetComponent<Collider2D>());
+        }
+
     }
 
 }

@@ -13,6 +13,16 @@ public class BoardManager : MonoBehaviour
     public float counter;
     float timeReducer = 0.3f;
 
+    public int totalEnemies = 0;
+    public int score;
+    public int highScore;
+
+
+    public int lives;
+
+    [SerializeField] float fallCounter;
+    public bool leftBoundaryCanTranslate, rightBoundaryCanTranslate;
+
     private void Start()
     {
         if (sharedInstance == null)
@@ -29,11 +39,17 @@ public class BoardManager : MonoBehaviour
 
     private void Update()
     {
-        counter += Time.fixedTime;
+        counter += Time.deltaTime;
+        fallCounter += Time.deltaTime;
+        if (totalEnemies == 0)
+        {
+            CreateInitialBoard();
+        }
     }
 
     private void CreateInitialBoard()
     {
+        counter = 0;
         aliens = new GameObject[xSize, ySize];
         float startX = this.transform.position.x;
         float startY = this.transform.position.y;
@@ -42,6 +58,7 @@ public class BoardManager : MonoBehaviour
         {
             for (int y = 0; y < ySize; y++)
             {
+                totalEnemies++;
                 int randomEnemy = Random.Range(0, prefabs.Capacity);
                 GameObject alien = Instantiate(prefabs[randomEnemy], new Vector3(startX + (paddingX * x), startY + (paddingY * y), 0), prefabs[randomEnemy].transform.rotation);
                 alien.name = string.Format("Alien[{0}][{1}]", x, y);
@@ -106,13 +123,29 @@ public class BoardManager : MonoBehaviour
     public void ChangeDirection(int row)
     {
         int w = aliens.GetLength(0);
-        
+
         for (int i = 0; i < w; i++)
         {
-            if(aliens[i, row] != null)
+            if (aliens[i, row] != null)
             {
-            aliens[i, row].GetComponent<Alien>().speed *= -1;
+                aliens[i, row].GetComponent<Alien>().speed *= -1;
             }
         }
+    }
+    public void TranslateEnemiesDown()
+    {
+
+
+
+        foreach (GameObject alien in aliens)
+        {
+            if (alien != null)
+            {
+                alien.transform.Translate(Vector3.down);
+            }
+        }
+        fallCounter = 0;
+
+
     }
 }
