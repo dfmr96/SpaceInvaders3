@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 25ceffcb89655a94b8e3da9da01c90e5
+guid: f9e02e6dd6295294888494d6f0d050e5
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -47,7 +47,7 @@ TextureImporter:
   spriteMeshType: 1
   alignment: 0
   spritePivot: {x: 0.5, y: 0.5}
-  spritePixelsToUnits: 100
+  spritePixelsToUnits: 16
   spriteBorder: {x: 0, y: 0, z: 0, w: 0}
   spriteGenerateFallbackPhysicsShape: 1
   alphaUsage: 1
@@ -140,13 +140,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: invaders-3_0
+      name: tank_destroyed_1
       rect:
         serializedVersion: 2
-        x: 0
-        y: 37
-        width: 218
-        height: 160
+        x: 19
+        y: 71
+        width: 16
+        height: 8
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -154,8 +154,29 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: a32a5e3e964c4ba4a8baba2a38a73e09
-      internalID: -538869550
+      spriteID: 46ba23fcbf05e36499773b5380cbd6ed
+      internalID: -1589850886
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: tank_destroyed_2
+      rect:
+        serializedVersion: 2
+        x: 37
+        y: 71
+        width: 16
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 6148b481fdf7bac4ca3e93ccdd1add3a
+      internalID: 1772716592
       vertices: []
       indices: 
       edges: []
@@ -171,7 +192,8 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      invaders-3_0: -538869550
+      tank_destroyed_1: -1589850886
+      tank_destroyed_2: 1772716592
   spritePackingTag: 
   pSDRemoveMatte: 0
   pSDShowRemoveMatteOption: 0

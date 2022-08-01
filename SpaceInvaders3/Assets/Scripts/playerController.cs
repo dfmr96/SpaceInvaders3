@@ -1,19 +1,22 @@
 using UnityEngine;
+using System.Collections;
 
 public class playerController : MonoBehaviour
 {
     Rigidbody2D rb;
+    Animator anim;
     [SerializeField] int speed = 5;
     private const string horizontal = "Horizontal";
     Vector2 movementDirection;
 
     [SerializeField] GameObject bulletPrefab;
     [SerializeField] float rateOfFire;
-    float rateOfFireTimer;
+    [SerializeField] float rateOfFireTimer;
 
     private void Start()
     {
         rb = GetComponent<Rigidbody2D>();
+        anim = GetComponent<Animator>();
     }
 
     private void Update()
@@ -55,11 +58,19 @@ public class playerController : MonoBehaviour
             if (BoardManager.sharedInstance.lives > 1)
             {
                 BoardManager.sharedInstance.lives--;
+                DestroyPlayer();
             }
             else
             {
                 BoardManager.sharedInstance.GameOver();
             }
         }
+    }
+
+    void DestroyPlayer()
+    {
+        anim.SetBool("isDestroyed", true);
+        Destroy(gameObject, 1f);
+        BoardManager.sharedInstance.SpawnPlayerMethod();
     }
 }

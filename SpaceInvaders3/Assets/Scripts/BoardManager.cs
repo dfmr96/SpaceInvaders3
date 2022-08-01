@@ -1,11 +1,13 @@
 using System.Collections.Generic;
 using UnityEngine;
+using System.Collections;
 
 public class BoardManager : MonoBehaviour
 {
     public static BoardManager sharedInstance; //singleton
 
     public List<GameObject> prefabs = new List<GameObject>(); //Alien prefabs
+    [SerializeField] GameObject player;
     public GameObject[,] aliens; //matriz
     public int xSize = 11, ySize = 5; //board size
     public float paddingX = 0.05f, paddingY = 0.05f; //alien padding
@@ -39,6 +41,7 @@ public class BoardManager : MonoBehaviour
             highScore = PlayerPrefs.GetInt("highscore", highScore);
         }
         CreateInitialBoard();
+        Instantiate(player, player.transform.position, player.transform.rotation);
     }
 
     private void Update()
@@ -47,6 +50,7 @@ public class BoardManager : MonoBehaviour
         if (totalEnemies == 0)
         {
             CreateInitialBoard();
+
         }
     }
 
@@ -186,7 +190,17 @@ public class BoardManager : MonoBehaviour
             
         }
         return fibNumbers;
+    }
 
-        
+    public IEnumerator SpawnPlayer()
+    {
+        yield return new WaitForSeconds(2f);
+        Instantiate(player, player.transform.position, player.transform.rotation);
+        StopCoroutine(SpawnPlayer());
+    }
+
+    public void SpawnPlayerMethod()
+    {
+        StartCoroutine(SpawnPlayer());
     }
 }
